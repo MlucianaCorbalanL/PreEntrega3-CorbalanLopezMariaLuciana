@@ -1,0 +1,478 @@
+@charset "UTF-8";
+/*variable de color*/
+/*variable de tamaño*/
+/*vista table*/
+/*768px hasta 1023px*/
+@import url("https://fonts.googleapis.com/css2?family=Barlow&family=Nunito:wght@300&family=Raleway:wght@100&family=Roboto+Condensed:wght@300&display=swap");
+@media (max-width: 1023px) {
+  /*hearder*/
+  header.encabezado {
+    height: auto;
+    flex-direction: column;
+    text-align: center;
+  }
+  header.encabezado header.li {
+    list-style-type: none;
+  }
+  header.encabezado header.li a {
+    text-decoration: none;
+    margin: 10px;
+    color: rgb(240, 187, 122);
+    font-size: 1rem;
+  }
+  header.encabezado header.li a:hover {
+    color: rgb(240, 187, 122);
+  }
+  /*banner*/
+  .carousel-inner img {
+    width: 100%;
+    height: auto;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 5%;
+  }
+  /*productos*/
+  .productos {
+    margin: 5vh;
+    font-size: 1rem;
+    margin: 5vh;
+    font-size: 1rem;
+  }
+  .productos h1,
+  .productos p {
+    font-size: inherit;
+  }
+  h1,
+  p {
+    font-size: inherit;
+  }
+  .productos {
+    margin: 5vh;
+    font-size: 1rem;
+  }
+  h3,
+  p {
+    font-size: inherit;
+  }
+  main.contenedorProductos {
+    grid-template-columns: 1fr 1fr;
+  }
+  /*nosotros*/
+  .pasteleros {
+    margin: 5vh;
+    font-size: 1rem;
+  }
+  .pasteleros h1,
+  .pasteleros p {
+    font-size: inherit;
+  }
+  main.contenedorpasteleros {
+    grid-template-columns: 1fr 1fr;
+  }
+  /*footer*/
+  .contenedorFooter {
+    flex-direction: column;
+    text-align: center;
+  }
+  /*contacto*/
+  .contacto {
+    margin: 5vh;
+    font-size: 1rem;
+  }
+  .contacto h1,
+  .contacto p {
+    font-size: inherit;
+  }
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  input[type=text] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+  }
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+  .btnFormulario {
+    background-color: rgb(250, 250, 250);
+    color: rgb(250, 174, 74);
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: rgb(245, 245, 220);
+    cursor: pointer;
+  }
+  .btnFormulario:hover {
+    background-color: rgb(245, 245, 220);
+  }
+  /*recetas*/
+  .recetas {
+    margin: 5vh;
+    font-size: 1rem;
+  }
+  .recetas h1,
+  .recetas p {
+    font-size: inherit;
+  }
+}
+/*ajustes para la vista movil*/
+/*0 hasta 768px*/
+@media (max-width: 768px) {
+  /*encabezado*/
+  header.encabezado {
+    height: auto;
+    flex-direction: column;
+    text-align: center;
+  }
+  header.encabezado header.li {
+    display: block;
+    text-align: center;
+    margin: 5px 0;
+  }
+  header.encabezado header.li a {
+    font-size: 1rem;
+    margin: 5px;
+  }
+  /*productos*/
+  main.contenedorProductos,
+  main.contenedorpasteleros {
+    grid-template-columns: 1fr;
+  }
+  /*nosotros*/
+  /*contacto*/
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  input[type=text] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+  }
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+  .btnFormulario {
+    background-color: rgb(250, 250, 250);
+    color: rgb(250, 174, 74);
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: rgb(222, 184, 135);
+    cursor: pointer;
+  }
+  .btnFormulario:hover {
+    background-color: rgb(245, 245, 220);
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* body */
+body {
+  font-family: "Barlow", sans-serif;
+  background-color: rgb(250, 250, 250);
+  box-sizing: border-box;
+}
+
+/*recetas*/
+.recetas {
+  text-align: center;
+  margin: 10vh;
+  box-shadow: 0px 2px 4px rgb(222, 184, 135);
+}
+.recetas h1 {
+  color: rgb(250, 174, 74);
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+.recetas p {
+  font-size: 1.2rem;
+  color: rgb(240, 187, 122);
+  padding: 10px;
+}
+
+h2 {
+  font-size: 1.2rem;
+  color: rgb(240, 187, 122);
+  padding: 10px;
+}
+
+li {
+  color: rgb(216, 157, 85);
+  font-size: 1.2rem;
+  padding: 5px;
+}
+
+/*productos*/
+.productos {
+  text-align: center;
+  margin: 10vh;
+  box-shadow: 0px 2px 4px rgb(222, 184, 135);
+}
+.productos h1 {
+  color: rgb(250, 174, 74);
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+h1 {
+  color: rgb(250, 174, 74);
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+.productos p {
+  font-size: 1.2rem;
+  color: rgb(240, 187, 122);
+  padding: 10px;
+}
+
+h3 {
+  color: rgb(250, 174, 74);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+
+.contenedorProductos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.productos {
+  border: 1px solid rgb(245, 245, 220);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.tarjetas {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(250, 250, 250);
+  border: 1px solid rgb(222, 184, 135);
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgb(222, 184, 135);
+  margin: 10px;
+}
+.tarjetas img {
+  max-width: 100%;
+}
+.tarjetas p {
+  text-align: center;
+  margin: 10px 0;
+  color: rgb(216, 157, 85);
+}
+.tarjetas button {
+  background-color: rgb(250, 250, 250);
+  color: rgb(250, 174, 74);
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 10px;
+  box-shadow: 0px 2px 4px rgb(222, 184, 135);
+}
+.tarjetas button:hover {
+  background-color: rgb(245, 245, 220);
+}
+
+/*nosotros*/
+.pasteleros {
+  text-align: center;
+  margin: 10vh;
+  box-shadow: 0px 2px 4px rgb(222, 184, 135);
+}
+.pasteleros h1 {
+  color: rgb(250, 174, 74);
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+.pasteleros p {
+  font-size: 1.2rem;
+  color: rgb(240, 187, 122);
+  padding: 10px;
+}
+
+.contenedorpasteleros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+p {
+  font-size: 1.2rem;
+  color: rgb(240, 187, 122);
+  padding: 10px;
+}
+
+.encabezado li a {
+  text-decoration: none;
+  margin: 10px;
+}
+
+/* header*/
+.encabezado {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  box-shadow: 0px 2px 4px rgb(222, 184, 135);
+}
+.encabezado li {
+  list-style-type: none;
+  display: inline-block;
+}
+.encabezado li a {
+  color: rgb(240, 187, 122);
+  font-size: 1.5rem;
+}
+.encabezado li a:hover {
+  color: rgb(240, 187, 122);
+}
+
+/*extend*/
+.baseEstilos, .redesSociales a, .infoContacto p {
+  margin: 5px 0;
+  font-size: 1.2rem;
+}
+
+/*footer*/
+.footer {
+  background-color: rgb(0, 0, 0);
+  color: rgb(250, 250, 250);
+  padding: 20px 0;
+}
+
+.contenedorFooter {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.redesSociales a {
+  color: rgb(240, 187, 122);
+  text-decoration: none;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+.redesSociales a:hover {
+  color: rgb(240, 187, 122);
+}
+
+.footer i {
+  margin-right: 10px;
+}
+
+/*contacto*/
+.contacto {
+  text-align: center;
+  margin: 10vh;
+  box-shadow: 0px 2px 4px rgb(222, 184, 135);
+}
+.contacto h1 {
+  color: rgb(250, 174, 74);
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+.contacto p {
+  font-size: 1.2rem;
+  color: rgb(240, 187, 122);
+  padding: 10px;
+}
+
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: rgb(250, 250, 250);
+  color: rgb(240, 187, 122);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  background-color: rgb(250, 250, 250);
+  color: rgb(240, 187, 122);
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  background-color: rgb(250, 250, 250);
+  color: rgb(240, 187, 122);
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  background-color: rgb(250, 250, 250);
+  color: rgb(240, 187, 122);
+  resize: vertical;
+  color: rgb(240, 187, 122);
+}
+
+.btnFormulario {
+  background-color: rgb(250, 250, 250);
+  color: rgb(250, 174, 74);
+  padding: 10px 15px;
+  border: rgb(222, 184, 135);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btnFormulario:hover {
+  background-color: rgb(245, 245, 220);
+}
+
+/*banner*/
+#carouselWithControls {
+  width: 100%;
+  margin: auto;
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+}
+
+/*# sourceMappingURL=estilos.css.map */
