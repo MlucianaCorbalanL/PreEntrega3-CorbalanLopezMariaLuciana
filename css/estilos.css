@@ -1,9 +1,5 @@
-@charset "UTF-8";
-/*variable de color*/
-/*variable de tamaño*/
-/*vista table*/
-/*768px hasta 1023px*/
 @import url("https://fonts.googleapis.com/css2?family=Barlow&family=Nunito:wght@300&family=Raleway:wght@100&family=Roboto+Condensed:wght@300&display=swap");
+
 @media (max-width: 1023px) {
   /*hearder*/
   header.encabezado {
