@@ -1,8 +1,8 @@
 
 // catálogo de productos
-let catalogoProductos = {
+const catalogoProductos = {
     1: { nombre: 'Tortas', precio: 7000 },
-    2: { nombre: 'Cupcake', precio: 1800 },
+    2: { nombre: 'Cupcake', precio: 900 },
     3: { nombre: 'Cookies', precio: 750 },
     4: { nombre: 'Tartas', precio: 3500 },
     5: { nombre: 'Pancakes', precio: 780 },
@@ -15,38 +15,35 @@ function registrarUsuario(nombre) {
     let contraseña = prompt("Ingrese su contraseña:");
 
     console.log("Usuario registrado exitosamente:");
-    console.log("Nombre: " + nombre);
-    console.log("Correo electrónico: " + correo);
+    console.log(`Nombre: ${nombre}`);
+    console.log(`Correo electrónico: ${correo}`);
 
-    alert("¡Registro exitoso! Gracias por unirte a nuestra pastelería, " + nombre + "!");
+    alert(`¡Registro exitoso! Gracias por unirte a nuestra pastelería, ${nombre.toLowerCase()}!`);
 }
 
 // Función para mostrar el catálogo de productos
 function mostrarCatalogo() {
     let catalogo = 'Catálogo de productos:\n';
-    for (let id in catalogoProductos) {
-        catalogo += id + ': ' + catalogoProductos[id].nombre + ' - $' + catalogoProductos[id].precio + '\n';
-    }
+Object.values(catalogoProductos).forEach((producto, index) => {
+  catalogo += `${index + 1}: ${producto.nombre} - $${producto.precio}\n`;
+});
     console.log(catalogo);
     alert(catalogo);
 }
 
 // Función para seleccionar método de pago
 function seleccionarMetodoDePago() {
-    let metodoPago = prompt('Seleccione su método de pago (Efectivo, Tarjeta):').toLowerCase();
-    switch (metodoPago) {
-        case 'efectivo':
-            alert('Pago en efectivo seleccionado.');
-            break;
-        case 'tarjeta':
-            alert('Pago con tarjeta seleccionado.');
-            break;
-        default:
-            alert('Método de pago no válido. Se realizará el pago en efectivo por defecto.');
-            break;
+    let metodoPago = prompt('Seleccione su método de pago (Efectivo, Tarjeta):');
+    let regex = /^(efectivo|tarjeta)$/i; // Expresión regular que acepta solo "efectivo" o "tarjeta", sin importar las mayúsculas o minúsculas
+    if (regex.test(metodoPago)) {
+        alert(`Pago con ${metodoPago.toLowerCase()} seleccionado.`);
+    } else {
+        alert('Método de pago no válido. Se realizará el pago en efectivo por defecto.');
+        metodoPago = 'efectivo';
     }
     return metodoPago;
 }
+
 
 // Seleccionar productos y realizar el pago
 function comprarProductos(usuario) {
@@ -62,13 +59,13 @@ function comprarProductos(usuario) {
         let idProducto = parseInt(prompt('Ingrese el ID del producto ' + (i + 1) + ':'));
         if (!catalogoProductos[idProducto]) {
             alert('El ID del producto ingresado no es válido.');
-            i--; // Repetir la iteración para ingresar un ID válido
+            i += -1; 
             continue;
         }
         let cantidadProducto = parseInt(prompt('Ingrese la cantidad de ' + catalogoProductos[idProducto].nombre + ' que desea comprar:'));
         if (isNaN(cantidadProducto) || cantidadProducto <= 0) {
             alert('Por favor, ingrese una cantidad válida para ' + catalogoProductos[idProducto].nombre);
-            i--; // Repetir la iteración para ingresar una cantidad válida
+            i += -1; 
             continue;
         }
         agregarAlCarrito(carritoCompra, idProducto, cantidadProducto);
@@ -76,9 +73,9 @@ function comprarProductos(usuario) {
 
     // Mostrar resumen de la compra
     let subtotal = calcularSubtotal(carritoCompra);
-    alert('Subtotal: $' + subtotal.toFixed(2));
+    alert(`Subtotal: $${subtotal.toFixed(2)}`);
     let totalConIVA = calcularTotalConIVA(subtotal);
-    alert('Total con IVA por envío: $' + totalConIVA.toFixed(2));
+    alert(`Total con IVA por envío: $${totalConIVA.toFixed(2)}`);
 
     // Seleccionar método de pago
     let metodoPago = seleccionarMetodoDePago();
@@ -86,9 +83,9 @@ function comprarProductos(usuario) {
     // Proceso de pago
     let confirmacionPago = confirm('¿Desea proceder con el pago?');
     if (confirmacionPago) {
-        alert('¡Pago exitoso! Gracias por su compra, ' + usuario + '.');
+        alert(`¡Pago exitoso! Gracias por su compra, ${usuario}.`);
     } else {
-        alert('Pago cancelado. ¡Esperamos volver a verte pronto, ' + usuario + '!');
+        alert(`Pago cancelado. ¡Esperamos volver a verte pronto, ${usuario}!`);
     }
 }
 
@@ -117,8 +114,9 @@ function calcularSubtotal(carrito) {
 
 // Función para calcular el total de la compra con IVA por envío
 function calcularTotalConIVA(subtotal) {
-    let iva = 0.1; // 10% de IVA
-    let totalConIVA = subtotal * (1 + iva);
+    const IVA = 0.21; // 21% de IVA
+    const ENVIO = 500; // Costo fijo de envío
+    let totalConIVA = subtotal * (1 + IVA) + ENVIO;
     return totalConIVA;
 }
 
