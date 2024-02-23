@@ -24,17 +24,17 @@ function registrarUsuario(nombre) {
 // Función para mostrar el catálogo de productos
 function mostrarCatalogo() {
     let catalogo = 'Catálogo de productos:\n';
-Object.values(catalogoProductos).forEach((producto, index) => {
-  catalogo += `${index + 1}: ${producto.nombre} - $${producto.precio}\n`;
-});
+    for (const producto in catalogoProductos) {
+      catalogo += `${producto}: ${catalogoProductos[producto].nombre} - $${catalogoProductos[producto].precio}\n`;
+    }
     console.log(catalogo);
     alert(catalogo);
-}
+  }
 
 // Función para seleccionar método de pago
 function seleccionarMetodoDePago() {
     let metodoPago = prompt('Seleccione su método de pago (Efectivo, Tarjeta):');
-    let regex = /^(efectivo|tarjeta)$/i; // Expresión regular que acepta solo "efectivo" o "tarjeta", sin importar las mayúsculas o minúsculas
+    let regex = /^(efectivo|tarjeta)$/i; 
     if (regex.test(metodoPago)) {
         alert(`Pago con ${metodoPago.toLowerCase()} seleccionado.`);
     } else {
@@ -43,7 +43,6 @@ function seleccionarMetodoDePago() {
     }
     return metodoPago;
 }
-
 
 // Seleccionar productos y realizar el pago
 function comprarProductos(usuario) {
