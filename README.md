@@ -1,2 +1,2 @@
 Quería compartir el proyecto que he estado trabajando para una pastelería. En el código JavaScript, he implementado la funcionalidad de registro de usuarios, lo que permite a los clientes crear cuentas y acceder fácilmente a sus perfiles.
-Además, he integrado un catálogo completo de productos de la pastelería, y opciones de filtrado para una experiencia de usuario mejorada. Los usuarios pueden seleccionar la cantidad deseada de productos y también elegir su método de pago preferido para agilizar el proceso de compra.
+Además, he integrado un catálogo completo de productos de la pastelería, y opciones de filtrado para una experiencia de usuario mejorada. Los usuarios pueden seleccionar la cantidad deseada de productos y realizar la compra de los mismos.
