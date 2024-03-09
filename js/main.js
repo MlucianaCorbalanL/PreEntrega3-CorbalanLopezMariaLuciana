@@ -1,132 +1,96 @@
+let productos = [];
 
-// catálogo de productos
-const catalogoProductos = {
-    1: { nombre: 'Tortas', precio: 7000 },
-    2: { nombre: 'Cupcake', precio: 900 },
-    3: { nombre: 'Cookies', precio: 750 },
-    4: { nombre: 'Tartas', precio: 3500 },
-    5: { nombre: 'Pancakes', precio: 780 },
-    6: { nombre: 'Donut', precio: 800 }
-};
+fetch("../js/producto.json")
+    .then(response => response.json())
+    .then(data => {
+        productos = data;
+        cargarProductos(productos);
+    })
 
-// Función para registrar un nuevo usuario
-function registrarUsuario(nombre) {
-    let correo = prompt("Ingrese su correo electrónico:");
-    let contraseña = prompt("Ingrese su contraseña:");
 
-    console.log("Usuario registrado exitosamente:");
-    console.log(`Nombre: ${nombre}`);
-    console.log(`Correo electrónico: ${correo}`);
 
-    alert(`¡Registro exitoso! Gracias por unirte a nuestra pastelería, ${nombre.toLowerCase()}!`);
+const contenedorProductos = document.querySelector("#contenedor-productos");
+const botonesCategorias = document.querySelectorAll(".boton-categoria");
+const tituloPrincipal = document.querySelector("#titulo-principal");
+let botonesAgregar =document.querySelectorAll(".producto-agregar");
+const numerito= document.querySelector("#numerito");
+
+function cargarProductos (productosElegidos){
+    contenedorProductos.innerHTML = "";
+   productosElegidos.forEach(producto =>{
+
+    const div = document.createElement("div");
+    div.classList.add("producto");
+    div.innerHTML = `
+    <img class="producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
+<div class="producto-detalle">
+  <h3 class="producto-titulo">${producto.titulo}</h3>
+  <p class="producto-precio">$${producto.precio}</p>
+  <button class="producto-agregar" id="${producto.id}">Agregar</button>
+</div>
+    `;
+    contenedorProductos.append(div);
+   })
+   actualizarBotonesAgregar();
 }
 
-// Función para mostrar el catálogo de productos
-function mostrarCatalogo() {
-    let catalogo = 'Catálogo de productos:\n';
-    for (const producto in catalogoProductos) {
-      catalogo += `${producto}: ${catalogoProductos[producto].nombre} - $${catalogoProductos[producto].precio}\n`;
-    }
-    console.log(catalogo);
-    alert(catalogo);
-  }
+botonesCategorias.forEach(boton =>{
+    boton.addEventListener ("click",(e) =>{
 
-// Función para seleccionar método de pago
-function seleccionarMetodoDePago() {
-    let metodoPago = prompt('Seleccione su método de pago (Efectivo, Tarjeta):');
-    let regex = /^(efectivo|tarjeta)$/i; 
-    if (regex.test(metodoPago)) {
-        alert(`Pago con ${metodoPago.toLowerCase()} seleccionado.`);
-    } else {
-        alert('Método de pago no válido. Se realizará el pago en efectivo por defecto.');
-        metodoPago = 'efectivo';
-    }
-    return metodoPago;
-}
+        botonesCategorias.forEach(boton => boton.classList.remove("active"));
+        e.currentTarget.classList.add("active");
 
-// Seleccionar productos y realizar el pago
-function comprarProductos(usuario) {
-    let carritoCompra = {};
+        if(e.currentTarget.id != "todos"){
+            const productoCategoria = productos.find(producto => producto.categoria.id === e.currentTarget.id);
+            tituloPrincipal.innerHTML=productoCategoria.categoria.nombre;
 
-    let cantidadProductosComprar = parseInt(prompt('¿Cuántos productos desea comprar?'));
-    if (isNaN(cantidadProductosComprar) || cantidadProductosComprar <= 0) {
-        alert('Por favor, ingrese una cantidad válida de productos.');
-        return;
-    }
-
-    for (let i = 0; i < cantidadProductosComprar; i++) {
-        let idProducto = parseInt(prompt('Ingrese el ID del producto ' + (i + 1) + ':'));
-        if (!catalogoProductos[idProducto]) {
-            alert('El ID del producto ingresado no es válido.');
-            i += -1; 
-            continue;
+            const productosBoton = productos.filter(producto => producto.categoria.id === e.currentTarget.id);
+        cargarProductos(productosBoton);
+        }else {
+            tituloPrincipal.innerHTML="Todos los productos";
+            cargarProductos(productos);
         }
-        let cantidadProducto = parseInt(prompt('Ingrese la cantidad de ' + catalogoProductos[idProducto].nombre + ' que desea comprar:'));
-        if (isNaN(cantidadProducto) || cantidadProducto <= 0) {
-            alert('Por favor, ingrese una cantidad válida para ' + catalogoProductos[idProducto].nombre);
-            i += -1; 
-            continue;
-        }
-        agregarAlCarrito(carritoCompra, idProducto, cantidadProducto);
-    }
+        
+    })
+});
 
-    // Mostrar resumen de la compra
-    let subtotal = calcularSubtotal(carritoCompra);
-    alert(`Subtotal: $${subtotal.toFixed(2)}`);
-    let totalConIVA = calcularTotalConIVA(subtotal);
-    alert(`Total con IVA por envío: $${totalConIVA.toFixed(2)}`);
+function actualizarBotonesAgregar(){
+    botonesAgregar = document.querySelectorAll(".producto-agregar");
 
-    // Seleccionar método de pago
-    let metodoPago = seleccionarMetodoDePago();
-
-    // Proceso de pago
-    let confirmacionPago = confirm('¿Desea proceder con el pago?');
-    if (confirmacionPago) {
-        alert(`¡Pago exitoso! Gracias por su compra, ${usuario}.`);
-    } else {
-        alert(`Pago cancelado. ¡Esperamos volver a verte pronto, ${usuario}!`);
-    }
+    botonesAgregar.forEach(boton => {
+        boton.addEventListener("click", agregarAlCarrito);
+    });
 }
 
-// Función para agregar productos al carrito
-function agregarAlCarrito(carrito, idProducto, cantidad) {
-    if (catalogoProductos[idProducto]) {
-        let nombreProducto = catalogoProductos[idProducto].nombre;
-        if (carrito[nombreProducto]) {
-            carrito[nombreProducto].cantidad += cantidad;
-        } else {
-            carrito[nombreProducto] = { cantidad: cantidad, precioUnitario: catalogoProductos[idProducto].precio };
-        }
-    } else {
-        alert('El producto con ID ' + idProducto + ' no existe en el catálogo.');
+let productosEnCarrito;
+
+let productosEnCarritoLS =localStorage.getItem("productos-en-carrito");
+
+if(productosEnCarritoLS){
+    productosEnCarrito = JSON.parse(productosEnCarritoLS);
+    actualizarNumerito();
+}else{
+    productosEnCarrito =[];
+}
+
+function agregarAlCarrito (e){
+    const idBoton=e.currentTarget.id;
+    const productoAgregado = productos.find(producto => producto.id === idBoton);
+
+    if(productosEnCarrito.some(producto => producto.id === idBoton)){
+        const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
+        productosEnCarrito[index].cantidad++; 
+    }else{
+        productoAgregado.cantidad= 1;
+        productosEnCarrito.push(productoAgregado);
     }
+    actualizarNumerito();
+
+    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 }
 
-// Función para calcular el subtotal del carrito
-function calcularSubtotal(carrito) {
-    let subtotal = 0;
-    for (let producto in carrito) {
-        subtotal += carrito[producto].cantidad * carrito[producto].precioUnitario;
-    }
-    return subtotal;
+function actualizarNumerito(){
+    let nuevoNumerito =productosEnCarrito.reduce ((acc, producto) => acc + producto.cantidad, 0 );
+    numerito.innerText = nuevoNumerito;
+
 }
-
-// Función para calcular el total de la compra con IVA por envío
-function calcularTotalConIVA(subtotal) {
-    const IVA = 0.21; // 21% de IVA
-    const ENVIO = 500; // Costo fijo de envío
-    let totalConIVA = subtotal * (1 + IVA) + ENVIO;
-    return totalConIVA;
-}
-
-// Solicitar el nombre al usuario
-let nombreUsuario = prompt('Por favor, ingrese su nombre:');
-
-// Llamar a la función registrarUsuario con el nombre proporcionado por el usuario
-registrarUsuario(nombreUsuario);
-
-// Mostrar el catálogo de productos
-mostrarCatalogo();
-
-// Llamar a la función comprarProductos con el nombre de usuario
-comprarProductos(nombreUsuario);

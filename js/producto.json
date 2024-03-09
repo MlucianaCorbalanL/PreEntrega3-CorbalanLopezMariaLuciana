@@ -1,0 +1,166 @@
+[
+    {
+        "id":"cookies-01",
+        "titulo": "Cookies formitas",
+        "imagen": "../img/cookies.jpg",
+        "categoria":{
+            "nombre":"Cookies",
+            "id":"Cookies"
+        },
+       "precio": 750
+    },
+
+    {
+        "id":"cookies-02",
+        "titulo": "Cookies decoradas",
+        "imagen": "../img/cookies 2.jpg",
+        "categoria":{
+            "nombre":"Cookies",
+            "id":"Cookies"
+        },
+       "precio": 750
+    },
+
+    {
+        "id":"cookies-03",
+        "titulo": "Cookies mix",
+        "imagen": "../img/cookies 3.jpg",
+        "categoria":{
+            "nombre":"Cookies",
+            "id":"Cookies"
+        },
+       "precio": 750
+    },
+
+    {
+        "id":"donut-01",
+        "titulo": "Donuts chocolate",
+        "imagen": "../img/donut.jpg",
+        "categoria":{
+            "nombre":"Donuts",
+            "id":"Donuts"
+        },
+       "precio": 800
+    },
+
+    {
+        "id":"donut-02",
+        "titulo": "Donuts mix",
+        "imagen": "../img/donut 2.jpg",
+        "categoria":{
+            "nombre":"Donuts",
+            "id":"Donuts"
+        },
+       "precio": 800
+    },
+
+    {
+        "id":"donut-03",
+        "titulo": "Donuts decoradas",
+        "imagen": "../img/donuts 3.jpg",
+        "categoria":{
+            "nombre":"Donuts",
+            "id":"Donuts"
+        },
+       "precio": 800
+    },
+
+    {
+        "id":"tarta-01",
+        "titulo": "Tarta de fruta",
+        "imagen": "../img/tarta.jpg" ,
+        "categoria":{
+            "nombre":"Tartas",
+            "id":"Tartas"
+        },
+       "precio": 3500
+    },
+
+    {
+        "id":"tarta-02",
+        "titulo": "Tarta de frutilla",
+        "imagen": "../img/tarta 2.jpg" ,
+        "categoria":{
+            "nombre":"Tartas",
+            "id":"Tartas"
+        },
+       "precio": 3500
+    },
+
+    {
+        "id":"tarta-03",
+        "titulo": "Tarta de chocolate",
+        "imagen": "../img/tarta 3.jpg" ,
+        "categoria":{
+            "nombre":"Tartas",
+            "id":"Tartas"
+        },
+       "precio": 3500
+    },
+
+    {
+        "id":"torta-01",
+        "titulo": "Torta de frutilla",
+        "imagen": "../img/torta.jpg",
+        "categoria":{
+            "nombre":"Tortas",
+            "id":"Tortas"
+        },
+       "precio": 7000
+    },
+
+    {
+        "id":"torta-02",
+        "titulo": "Torta de frutas",
+        "imagen": "../img/torta 2.jpg",
+        "categoria":{
+            "nombre":"Tortas",
+            "id":"Tortas"
+        },
+       "precio": 7000
+    },
+
+    {
+        "id":"torta-03",
+        "titulo": "Torta de chocolate",
+        "imagen": "../img/torta 3.jpg",
+        "categoria":{
+            "nombre":"Tortas",
+            "id":"Tortas"
+        },
+       "precio": 7000
+    },
+
+    {
+        "id":"cupcakes-01",
+        "titulo": "Cupcakes mix",
+        "imagen": "../img/cupcakes.jpg" ,
+        "categoria":{
+            "nombre":"Cupcakes",
+            "id":"Cupcakes"
+        },
+       "precio": 900
+    },
+
+    {
+        "id":"cupcakes-02",
+        "titulo": "Cupcakes de chocolate",
+        "imagen": "../img/cupcakes 2.jpg" ,
+        "categoria":{
+            "nombre":"Cupcakes",
+            "id":"Cupcakes"
+        },
+       "precio": 900
+    },
+
+    {
+        "id":"cupcakes-03",
+        "titulo": "Cupcakes vainilla",
+        "imagen": "../img/cupcakes 3.jpg",
+        "categoria":{
+            "nombre":"Cupcakes",
+            "id":"Cupcakes"
+        },
+       "precio": 900
+    }
+]
