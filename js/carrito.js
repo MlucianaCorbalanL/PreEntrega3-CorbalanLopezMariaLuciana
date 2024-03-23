@@ -1,6 +1,7 @@
-let productosEnCarrito = (localStorage.getItem("productos-en-carrito"));
-productosEnCarrito =JSON.parse(productosEnCarrito);
+// Obtenemos los productos en el carrito del Local Storage y los convertimos a un objeto JavaScript
+let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito"));
 
+// Obtenemos los elementos del DOM que vamos a utilizar
 const contenedorCarritoVacio = document.querySelector("#carrito-vacio");
 const ContenedorCarritoProductos = document.querySelector("#carrito-productos");
 const ContenedorCarritoAcciones = document.querySelector("#carrito-acciones");
@@ -10,9 +11,10 @@ const botonVaciar = document.querySelector("#carrito-acciones-vaciar");
 const contenedorTotal=document.querySelector("#total");
 const botonComprar = document.querySelector("#carrito-acciones-comprar");
 
-
+// Función para cargar los productos en el carrito
 function cargarProductosCarrito () {
 
+    // Si hay productos en el carrito
     if (productosEnCarrito && productosEnCarrito.length > 0){
         contenedorCarritoVacio.classList.add("disabled");
         ContenedorCarritoProductos.classList.remove("disabled");
@@ -21,10 +23,12 @@ function cargarProductosCarrito () {
     
         ContenedorCarritoProductos.innerHTML="";
     
+        // Iteramos sobre cada producto en el carrito
         productosEnCarrito.forEach(producto => {
-            const div = document.createElement("div");
-            div.classList.add("carrito-producto");
-            div.innerHTML =`
+            const div = document.createElement("div"); // Creamos un nuevo elemento div
+            div.classList.add("carrito-producto"); // Añadimos la clase 'carrito-producto' al div
+            // Insertamos el HTML para cada producto en el div
+            div.innerHTML =` 
             <img class="carrito-producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
             <div class="carrito-producto-titulo">
                 <small>Titulo</small>
@@ -44,9 +48,9 @@ function cargarProductosCarrito () {
             </div>
             <button class="carrito-producto-eliminar" id="${producto.id}"><i class="bi bi-trash-fill"></i></button>
             `
-            ContenedorCarritoProductos.append(div);
+            ContenedorCarritoProductos.append(div); // Añadimos el div al contenedor de productos en el carrito
         })    
-    }else{
+    }else{ // Si no hay productos en el carrito
     
         contenedorCarritoVacio.classList.remove("disabled");
         ContenedorCarritoProductos.classList.add("disabled");
@@ -54,56 +58,98 @@ function cargarProductosCarrito () {
         ContenedorCarritoComprado.classList.add("disabled");
     } 
 
-    actualizarBotonesEliminar();
-    actualizarTotal();
+    actualizarBotonesEliminar(); // Actualizamos los botones de eliminar
+    actualizarTotal(); // Actualizamos el total
 }
 
-cargarProductosCarrito ();
+cargarProductosCarrito (); // Cargamos los productos en el carrito
 
+// Función para actualizar los botones de eliminar
 function actualizarBotonesEliminar(){
-    botonesEliminar =document.querySelectorAll(".carrito-producto-eliminar");
+    botonesEliminar =document.querySelectorAll(".carrito-producto-eliminar"); // Obtenemos todos los botones de eliminar
 
     botonesEliminar.forEach(boton => {
-        boton.addEventListener("click", eliminarDelCarrito);
+        boton.addEventListener("click", eliminarDelCarrito); // Añadimos un evento de click a cada botón para eliminar el producto del carrito
     });
 }
 
+// Función para eliminar un producto del carrito
 function eliminarDelCarrito (e) {
-    const idBoton = e.currentTarget.id;
-    const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
-   
-    productosEnCarrito.splice(index, 1);
-    cargarProductosCarrito();
 
-    productosEnCarrito.splice(index, 1);
-    localStorage.setItem("productos-en-carrito",JSON.stringify (productosEnCarrito));
+    Toastify({ // Mostramos una notificación de que el producto fue eliminado
+        text: "Producto eliminado",
+        duration: 3000,
+        close: true,
+        gravity: "top", 
+        position: "right", 
+        stopOnFocus: true, 
+        style: {
+          background: "linear-gradient(to right, #faa872, #c77408)",
+          borderRadius: "2rem",
+          textTransform: "uppercase",
+          fontSize: ".75rem"
+        },
+        offset: {
+            x: '1.5rem', 
+            y: '1.5rem' 
+          },
+        onClick: function(){} 
+      }).showToast();
+
+    const idBoton = e.currentTarget.id; // Obtenemos el id del botón clickeado
+    const index = productosEnCarrito.findIndex(producto => producto.id === idBoton); // Buscamos el índice del producto en el carrito
+   
+    productosEnCarrito.splice(index, 1); // Eliminamos el producto del carrito
+    cargarProductosCarrito(); // Cargamos los productos en el carrito
+
+    productosEnCarrito.splice(index, 1); // Eliminamos el producto del carrito
+    localStorage.setItem("productos-en-carrito",JSON.stringify (productosEnCarrito)); // Guardamos los productos en el carrito en el Local Storage
 }
 
+
+// Añadimos un evento de click al botón de vaciar el carrito
 botonVaciar.addEventListener("click", vaciarCarrito);
 
+// Función para vaciar el carrito
 function vaciarCarrito(){
 
-    productosEnCarrito.length = 0;
-    localStorage.setItem("productos-en-carrito",JSON.stringify (productosEnCarrito));
-    cargarProductosCarrito();
-
+  // Mostramos un mensaje de confirmación para vaciar el carrito
+  Swal.fire({
+        title: '¿Estás seguro?', // Título del mensaje
+        icon: 'question', // Icono del mensaje
+        html: `Se van a borrar ${productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0)} productos.`, // Contenido del mensaje
+        showCancelButton: true, // Mostramos el botón de cancelar
+        focusConfirm: false, // No enfocamos el botón de confirmar
+        confirmButtonText: 'Sí', // Texto del botón de confirmar
+        cancelButtonText: 'No' // Texto del botón de cancelar
+    }).then((result) => {
+        if (result.isConfirmed) { // Si el usuario confirma la acción
+            productosEnCarrito.length = 0; // Vaciamos el carrito
+            localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito)); // Guardamos el carrito vacío en el Local Storage
+            cargarProductosCarrito(); // Cargamos los productos en el carrito
+        }
+      })
 }
 
+// Función para actualizar el total del carrito
 function actualizarTotal(){
-    const totalCalculado= productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
-    total.innerText= `$${totalCalculado}`;
+    const totalCalculado= productosEnCarrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0); // Calculamos el total del carrito
+    total.innerText= `$${totalCalculado}`; // Mostramos el total del carrito
 
 }
 
+// Añadimos un evento de click al botón de comprar
 botonComprar.addEventListener("click", comprarCarrito);
 
+// Función para comprar los productos en el carrito
 function comprarCarrito(){
 
-    productosEnCarrito.length = 0;
-    localStorage.setItem("productos-en-carrito",JSON.stringify (productosEnCarrito));
+    productosEnCarrito.length = 0; // Vaciamos el carrito
+    localStorage.setItem("productos-en-carrito",JSON.stringify (productosEnCarrito)); // Guardamos el carrito vacío en el Local Storage
     
-        contenedorCarritoVacio.classList.add("disabled");
-        ContenedorCarritoProductos.classList.add("disabled");
-        ContenedorCarritoAcciones.classList.add("disabled");
-        ContenedorCarritoComprado.classList.remove("disabled");
+    // Mostramos el contenedor de carrito comprado y ocultamos los demás contenedores
+    contenedorCarritoVacio.classList.add("disabled");
+    ContenedorCarritoProductos.classList.add("disabled");
+    ContenedorCarritoAcciones.classList.add("disabled");
+    ContenedorCarritoComprado.classList.remove("disabled");
 }
