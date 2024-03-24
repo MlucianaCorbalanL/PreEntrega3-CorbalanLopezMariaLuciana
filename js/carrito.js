@@ -115,16 +115,16 @@ function vaciarCarrito(){
 
   // Mostramos un mensaje de confirmación para vaciar el carrito
   Swal.fire({
-        title: '¿Estás seguro?', // Título del mensaje
-        icon: 'question', // Icono del mensaje
-        html: `Se van a borrar ${productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0)} productos.`, // Contenido del mensaje
-        showCancelButton: true, // Mostramos el botón de cancelar
-        focusConfirm: false, // No enfocamos el botón de confirmar
-        confirmButtonText: 'Sí', // Texto del botón de confirmar
-        cancelButtonText: 'No' // Texto del botón de cancelar
+        title: '¿Estás seguro?', 
+        icon: 'question', 
+        html: `Se van a borrar ${productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0)} productos.`, 
+        showCancelButton: true, 
+        focusConfirm: false, 
+        confirmButtonText: 'Sí', 
+        cancelButtonText: 'No' 
     }).then((result) => {
-        if (result.isConfirmed) { // Si el usuario confirma la acción
-            productosEnCarrito.length = 0; // Vaciamos el carrito
+        if (result.isConfirmed) { 
+            productosEnCarrito.length = 0; 
             localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito)); // Guardamos el carrito vacío en el Local Storage
             cargarProductosCarrito(); // Cargamos los productos en el carrito
         }
